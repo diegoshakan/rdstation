@@ -21,7 +21,7 @@ class CartsController < ApplicationController
     render json: format_cart_response(@cart)
   end
 
-  def add_product
+  def add_item
     product_id = cart_params[:product_id].to_i
     quantity = cart_params[:quantity].to_i
 
@@ -73,6 +73,7 @@ class CartsController < ApplicationController
   end
 
   def verify_quantity
+    return if cart_params[:quantity].nil?
     if cart_params[:quantity].to_i.negative? || cart_params[:quantity].to_i.zero?
       return render json: { error: "Quantidade não pode ser menor que um" }, status: :not_acceptable
     end

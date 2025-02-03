@@ -216,3 +216,6 @@ bundle exec rspec
 
 ### Como enviar seu projeto
 Salve seu código em um versionador de código (GitHub, GitLab, Bitbucket) e nos envie o link publico. Se achar necessário, informe no README as instruções para execução ou qualquer outra informação relevante para correção/entendimento da sua solução.
+
+### Observações
+Aplicação rodando com docker compose, necessário rodar os comandos do banco (db:create db:migrate db:seed) no `web bash`.
