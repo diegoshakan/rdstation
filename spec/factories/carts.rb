@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :cart do
-    total_price { "9.99" }
+    total_price { FFaker.numerify('##.##') }
   end
 end
