@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Cart, type: :model do
+  context 'associations' do
+    it { should have_many(:cart_products) }
+  end
+
+  context 'validations' do
+    it { should validate_numericality_of(:total_price).is_greater_than_or_equal_to(0) }
+  end
+
   context 'when validating' do
     it 'validates numericality of total_price' do
       cart = described_class.new(total_price: -1)
@@ -23,6 +31,7 @@ RSpec.describe Cart, type: :model do
 
     it 'removes the shopping cart if abandoned for a certain time' do
       shopping_cart.mark_as_abandoned
+      expect(shopping_cart.abandoned?).to be_truthy
       expect { shopping_cart.remove_if_abandoned }.to change { Cart.count }.by(-1)
     end
   end
