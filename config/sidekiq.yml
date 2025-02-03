@@ -11,6 +11,6 @@
 :scheduler:
   :schedule:
     AbandonedCartsJob:
-      cron: "*/5 * * * * *" # Executa a cada 5 segundos
+      every: 3 hours
       class: AbandonedCartsJob
       queue: default

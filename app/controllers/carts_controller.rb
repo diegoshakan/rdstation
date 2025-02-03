@@ -12,6 +12,7 @@ class CartsController < ApplicationController
     end
 
     @cart.cart_products.create(product_id: product_id, quantity: quantity)
+    @cart.touch
 
     render json: format_cart_response(@cart)
   end
@@ -32,7 +33,12 @@ class CartsController < ApplicationController
 
     cart_product = @cart.cart_products.find_by(product_id: product_id)
 
-    cart_product.update(quantity: cart_product.quantity + quantity) if cart_product
+    if cart_product
+      cart_product.update(quantity: cart_product.quantity + quantity)
+    else
+      @cart.cart_products.create(product_id: product_id, quantity: quantity)
+    end
+    @cart.touch
 
     render json: format_cart_response(@cart)
   end
@@ -43,6 +49,7 @@ class CartsController < ApplicationController
 
     if cart_product
       cart_product.destroy
+      @cart.touch
       @cart.reload
       render json: format_cart_response(@cart)
     else
